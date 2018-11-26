@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!--<link rel="stylesheet"  href="style.css" />-->
     <meta charset="UTF-8">
     <title>Main Page</title>
+    <style type="text/css">
+        TABLE {
+            background: #803e7d; /* Цвет фона таблицы */
+            color: #f2f2f2; /* Цвет текста */
+        }
+        TD {
+            background: #5b979b; /* Цвет фона ячеек */
+        }
+    </style>
 </head>
 <body>
 <div>Список телефонов</div>
 <table>
-    <colgroup>
-        <col span="2" style="background:Khaki"><!-- С помощью этой конструкции задаем цвет фона для первых двух столбцов таблицы-->
-        <col style="background-color:LightCyan"><!-- Задаем цвет фона для следующего (одного) столбца таблицы-->
-    </colgroup>
+    <!--<colgroup>-->
+        <!--&lt;!&ndash;<col span="2" style="background:Khaki">&lt;!&ndash; С помощью этой конструкции задаем цвет фона для первых двух столбцов таблицы&ndash;&gt;&ndash;&gt;-->
+        <!--<col style="background-color:LightCyan">&lt;!&ndash; Задаем цвет фона для следующего (одного) столбца таблицы&ndash;&gt;-->
+    <!--</colgroup>-->
 
     <tr>
         <th>№ п/п</th>
@@ -34,14 +44,14 @@
         <!--<td>30,00</td>-->
     <!--</tr>-->
 </table>
-{{#messages}}
-<div >
-    <b>{{id}}</b>
-    <span>{{manufacturer}}</span>
-    <i>{{productName}}</i>
-    <i>{{price}}</i>
-    <span>{{productCount}}</span>
-</div>
-{{/messages}}
+<!--{{#messages}}-->
+<!--<div >-->
+    <!--<b>{{id}}</b>-->
+    <!--<span>{{manufacturer}}</span>-->
+    <!--<i>{{productName}}</i>-->
+    <!--<i>{{price}}</i>-->
+    <!--<span>{{productCount}}</span>-->
+<!--</div>-->
+<!--{{/messages}}-->
 </body>
 </html>
