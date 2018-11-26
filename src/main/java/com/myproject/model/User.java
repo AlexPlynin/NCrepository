@@ -2,19 +2,19 @@ package com.myproject.model;
 
 import javax.persistence.*;
 
-@Entity
+//@Entity
 public class User {
 
     public User() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    //@Column(name = "id")
     private Integer id;
-    @Column(name = "name")
+    //@Column(name = "name")
     private String name;
-    @Column(name = "last_name")
+    //@Column(name = "last_name")
     private String lastName;
 
     public Integer getId() {
@@ -49,7 +49,7 @@ public class User {
         this.balance = balance;
     }
 
-    @Column(name = "balance")
+    //@Column(name = "balance")
     private float balance;
 
 

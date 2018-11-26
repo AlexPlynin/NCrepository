@@ -12,7 +12,7 @@ public class Phone {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-   // @Column(name = "name")
+    @Column(name = "product_name")
     private String productName;
    // @Column(name = "model")
     private String manufacturer;
@@ -20,6 +20,7 @@ public class Phone {
     private String color;
     //@Column(name = "cost")
     private Double price;
+    @Column(name = "product_count")
     private Integer productCount;
 
 
