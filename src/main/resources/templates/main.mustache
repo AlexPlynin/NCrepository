@@ -6,8 +6,36 @@
 </head>
 <body>
 <div>Список телефонов</div>
+<table>
+    <colgroup>
+        <col span="2" style="background:Khaki"><!-- С помощью этой конструкции задаем цвет фона для первых двух столбцов таблицы-->
+        <col style="background-color:LightCyan"><!-- Задаем цвет фона для следующего (одного) столбца таблицы-->
+    </colgroup>
+
+    <tr>
+        <th>№ п/п</th>
+        <th>Производитель</th>
+        <th>Наименование Модели</th>
+        <th>Колличесвто на складе</th>
+        <th>Цена, руб.</th>
+    </tr>
+    {{#messages}}
+    <tr>
+        <td>{{id}}</td>
+        <td>{{manufacturer}}</td>
+        <td>{{productName}}</td>
+        <td>{{price}}</td>
+        <td>{{productCount}}</td>
+    </tr>
+    {{/messages}}
+    <!--<tr>-->
+        <!--<td>2</td>-->
+        <!--<td>Линейка 20 см</td>-->
+        <!--<td>30,00</td>-->
+    <!--</tr>-->
+</table>
 {{#messages}}
-<div>
+<div >
     <b>{{id}}</b>
     <span>{{manufacturer}}</span>
     <i>{{productName}}</i>
