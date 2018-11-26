@@ -3,7 +3,7 @@ package com.myproject.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "phones")
+@Table(name = "product")
 public class Phone {
 
     public Phone() {
@@ -12,15 +12,15 @@ public class Phone {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Column(name = "name")
-    private String name;
-    @Column(name = "model")
-    private String model;
-    @Column(name = "color")
+   // @Column(name = "name")
+    private String productName;
+   // @Column(name = "model")
+    private String manufacturer;
+    //@Column(name = "color")
     private String color;
-    @Column(name = "cost")
-    private Integer cost;
-
+    //@Column(name = "cost")
+    private Double price;
+    private Integer productCount;
 
 
     public Integer getId() {
@@ -31,20 +31,20 @@ public class Phone {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getProductname() {
+        return productName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProductname(String productName) {
+        this.productName = productName;
     }
 
-    public String getModel() {
-        return model;
+    public String getManufacturer() {
+        return manufacturer;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
     public String getColor() {
@@ -55,5 +55,19 @@ public class Phone {
         this.color = color;
     }
 
+    public Double getPrice() {
+        return price;
+    }
 
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Integer getProductCount() {
+        return productCount;
+    }
+
+    public void setProductCount(Integer productCount) {
+        this.productCount = productCount;
+    }
 }
