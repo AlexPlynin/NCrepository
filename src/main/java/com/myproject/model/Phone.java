@@ -1,9 +1,12 @@
 package com.myproject.model;
 
 import javax.persistence.*;
+import javax.sql.DataSource;
+import java.util.Date;
 
 @Entity
-@Table(name = "product")
+@Table(name = "Phones")
+
 public class Phone {
 
     public Phone() {
@@ -11,49 +14,45 @@ public class Phone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "phone_id")
     private Integer id;
-    @Column(name = "product_name")
-    private String productName;
-   // @Column(name = "model")
-    private String manufacturer;
-    //@Column(name = "color")
-    private String color;
-    //@Column(name = "cost")
-    private Double price;
-    @Column(name = "product_count")
-    private Integer productCount;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "model_id")       //однонаправленное отношение
+    private ModelCharacteristics modelCharacteristics;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "color")
+    private Pictures pictures;
 
     public Integer getId() {
         return id;
     }
+    //@Column(name = "cost")
+    private Double price;
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_data")
+    private Date date;
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getProductname() {
-        return productName;
+    public ModelCharacteristics getModelCharacteristics() {
+        return modelCharacteristics;
     }
 
-    public void setProductname(String productName) {
-        this.productName = productName;
+    public void setModelCharacteristics(ModelCharacteristics modelCharacteristics) {
+        this.modelCharacteristics = modelCharacteristics;
     }
 
-    public String getManufacturer() {
-        return manufacturer;
+    public Pictures getPictures() {
+        return pictures;
     }
 
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
+    public void setPictures(Pictures pictures) {
+        this.pictures = pictures;
     }
 
     public Double getPrice() {
@@ -64,11 +63,11 @@ public class Phone {
         this.price = price;
     }
 
-    public Integer getProductCount() {
-        return productCount;
+    public Date getDate() {
+        return date;
     }
 
-    public void setProductCount(Integer productCount) {
-        this.productCount = productCount;
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

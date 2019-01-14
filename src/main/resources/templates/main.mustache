@@ -16,11 +16,7 @@
 </head>
 <body>
 <div>Список телефонов</div>
-<table>
-    <!--<colgroup>-->
-        <!--&lt;!&ndash;<col span="2" style="background:Khaki">&lt;!&ndash; С помощью этой конструкции задаем цвет фона для первых двух столбцов таблицы&ndash;&gt;&ndash;&gt;-->
-        <!--<col style="background-color:LightCyan">&lt;!&ndash; Задаем цвет фона для следующего (одного) столбца таблицы&ndash;&gt;-->
-    <!--</colgroup>-->
+<table align="center">
 
     <tr>
         <th>№ п/п</th>
@@ -32,26 +28,12 @@
     {{#messages}}
     <tr>
         <td>{{id}}</td>
-        <td>{{manufacturer}}</td>
-        <td>{{productName}}</td>
         <td>{{price}}</td>
-        <td>{{productCount}}</td>
+        <td>{{date}}</td>
     </tr>
     {{/messages}}
-    <!--<tr>-->
-        <!--<td>2</td>-->
-        <!--<td>Линейка 20 см</td>-->
-        <!--<td>30,00</td>-->
-    <!--</tr>-->
+
 </table>
-<!--{{#messages}}-->
-<!--<div >-->
-    <!--<b>{{id}}</b>-->
-    <!--<span>{{manufacturer}}</span>-->
-    <!--<i>{{productName}}</i>-->
-    <!--<i>{{price}}</i>-->
-    <!--<span>{{productCount}}</span>-->
-<!--</div>-->
-<!--{{/messages}}-->
+
 </body>
 </html>
