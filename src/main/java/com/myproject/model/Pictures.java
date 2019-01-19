@@ -11,6 +11,9 @@ public class Pictures {
     @Column(name = "model_id")
     private Integer modelId;
 
+    @OneToOne(mappedBy = "pictures")
+    private Phone phone;
+
     private String color;
     @Lob
     @Column(columnDefinition = "BLOB")

@@ -15,7 +15,7 @@ public class ImageUtil {
 
     public static byte[] loadImage() {
         try {
-            return Files.readAllBytes(Paths.get(ImageUtil.class.getResource("/I1Na-KcM_400x400.jpeg").toURI()));
+            return Files.readAllBytes(Paths.get(ImageUtil.class.getResource("/image.jpeg").toURI()));
         } catch (IOException | URISyntaxException e) {
             throw new RuntimeException(e);
         }
