@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-
 public class Pictures {
     public Pictures() {
     }
@@ -15,7 +14,7 @@ public class Pictures {
     @Column(name = "model_id")
     private Integer modelId;
 
-    @OneToMany(mappedBy = "pictures",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "pictures",fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
     private Set<Phone> phone;
 
     //@OneToOne(mappedBy = "color")

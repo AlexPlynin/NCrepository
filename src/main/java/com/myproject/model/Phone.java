@@ -22,16 +22,25 @@ public class Phone {
     @JoinColumn(name = "MODEL_ID", nullable = false)
     private ModelCharacteristics modelCharacteristics;
 
-    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY) //У множества телефонов одна характеризующая картинка
-    @JoinColumn(name = "PICTURE_ID")
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+    //У множества телефонов одна характеризующая картинка
+    @JoinColumn(name = "PICTURE_ID",nullable = false)
     private Pictures pictures;//
 
-//    @OneToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY) //цвет отдие к одному
+    //    @OneToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY) //цвет отдие к одному
 //    @JoinColumn(name = "color")
 //    private Pictures color;
     private String color;
 
     public Phone(String color, Double price) {
+        this.color = color;
+        this.price = price;
+        this.date = new Date();
+    }
+
+    public Phone(ModelCharacteristics modelCharacteristics, Pictures pictures, String color, Double price) {
+        this.modelCharacteristics = modelCharacteristics;
+        this.pictures = pictures;
         this.color = color;
         this.price = price;
         this.date = new Date();
@@ -45,4 +54,4 @@ public class Phone {
     @Column(name = "creation_data")
     private Date date;
 
-    }
+}
