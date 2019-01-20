@@ -1,8 +1,12 @@
 package com.myproject.model;
 
+
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
+
 public class Pictures {
     public Pictures() {
     }
@@ -11,13 +15,16 @@ public class Pictures {
     @Column(name = "model_id")
     private Integer modelId;
 
-    @OneToOne(mappedBy = "pictures")
-    private Phone phone;
+    @OneToMany(mappedBy = "pictures",fetch = FetchType.LAZY)
+    private Set<Phone> phone;
 
+    //@OneToOne(mappedBy = "color")
     private String color;
-    @Lob
-    @Column(columnDefinition = "BLOB")
-    private byte[] picture;
+
+    public Pictures(String color, byte[] picture) {
+        this.color = color;
+        this.picture = picture;
+    }
 
     public Integer getModelId() {
         return modelId;
@@ -25,6 +32,14 @@ public class Pictures {
 
     public void setModelId(Integer modelId) {
         this.modelId = modelId;
+    }
+
+    public Set<Phone> getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Set<Phone> phone) {
+        this.phone = phone;
     }
 
     public String getColor() {
@@ -42,4 +57,9 @@ public class Pictures {
     public void setPicture(byte[] picture) {
         this.picture = picture;
     }
+
+    @Lob
+    @Column(columnDefinition = "BLOB")
+    private byte[] picture;
+
 }

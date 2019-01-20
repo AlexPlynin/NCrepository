@@ -2,6 +2,7 @@ package com.myproject.model;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Model_characteristics")
@@ -13,7 +14,12 @@ public class ModelCharacteristics {
     @Id
     @GeneratedValue
     @Column(name = "model_id")
-    private Integer modelID;
+    private Integer modeld;
+
+    @OneToMany(mappedBy = "modelCharacteristics", cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+    private Set<Phone> phones;
+
+
 
     private Double diagonal;
 
@@ -21,12 +27,33 @@ public class ModelCharacteristics {
 
     private String description;
 
-    public Integer getModelID() {
-        return modelID;
+    public ModelCharacteristics(Set<Phone> phones, Double diagonal, String size, String description) {
+        this.phones = phones;
+        this.diagonal = diagonal;
+        this.size = size;
+        this.description = description;
     }
 
-    public void setModelID(Integer modelID) {
-        this.modelID = modelID;
+    public ModelCharacteristics(Double diagonal, String size, String description) {
+        this.diagonal = diagonal;
+        this.size = size;
+        this.description = description;
+    }
+
+    public Integer getModeld() {
+        return modeld;
+    }
+
+    public void setModeld(Integer modeld) {
+        this.modeld = modeld;
+    }
+
+    public Set<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(Set<Phone> phones) {
+        this.phones = phones;
     }
 
     public Double getDiagonal() {
