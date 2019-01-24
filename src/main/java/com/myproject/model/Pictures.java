@@ -3,6 +3,7 @@ package com.myproject.model;
 
 
 import javax.persistence.*;
+import java.util.Base64;
 import java.util.Set;
 
 @Entity
@@ -10,7 +11,7 @@ public class Pictures {
     public Pictures() {
     }
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "model_id")
     private Integer modelId;
 
@@ -51,6 +52,12 @@ public class Pictures {
 
     public byte[] getPicture() {
         return picture;
+    }
+
+    public String getEncodePictures(){
+
+
+        return Base64.getEncoder().encodeToString(getPicture());
     }
 
     public void setPicture(byte[] picture) {

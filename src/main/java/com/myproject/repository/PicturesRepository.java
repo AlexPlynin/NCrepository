@@ -8,4 +8,6 @@ import java.util.List;
 public interface PicturesRepository extends JpaRepository<Pictures,Long> {
 
     //Pictures findByModelId();
+
+    Pictures findByModelId(Integer id);
 }

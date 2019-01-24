@@ -28,7 +28,7 @@ public class PictureServiceImpl implements PictureService {
 //    }
 
     public byte [] encodeImage(String filePath) {
-        byte [] image = loadImage(filePath);
+       // byte [] image = loadImage(filePath);
         //String picture = Base64.getEncoder().encodeToString(image);
         return loadImage(filePath);
     }

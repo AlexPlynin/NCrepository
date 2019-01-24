@@ -1,18 +1,73 @@
-<!DOCTYPE HTML>
+
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" type="text/css" media="all"
-          th:href="@{/styles.css}" />
+    <title>Choose your phone</title>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
 </head>
-
-<body>
-<header class="label">
-    KKK
+<header>
+    <h1>Phones</h1>
 </header>
-<span class="axis" th:align="center">Welcome to the Phone Shop</span>
-<div class="accordion" align="center">
-    <div>Go to Main page <a  th:href="@{/main}">click here</a></div>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Spring Boot</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div align="middle" >
+    <table class="table" border="5"   >
+        <tr class="tab-content">
+            <th>id</th>
+            <th>model</th>
+            <th>picture_id</th>
+            <th>color</th>
+            <th>price</th>
+            <th>size</th>
+            <th>diagonal</th>
+            <th>description</th>
+            <th>creation date</th>
+            <th>picture</th>
+        </tr>
+        <tr th:each ="phone : ${phones}">
+            <td th:text="${phone.getId()}">...</td>
+            <td th:utext="${phone.getModelCharacteristics().getModelId()}">...</td>
+            <td th:utext="${phone.getPictures().getModelId()}">...</td>
+            <td th:utext="${phone.getColor()}">...</td>
+            <td th:utext="${phone.getPrice()}">...</td>
+            <td th:utext="${phone.getModelCharacteristics().getSize()}">...</td>
+            <td th:utext="${phone.getModelCharacteristics().getDiagonal()}">...</td>
+            <td th:utext="${phone.getModelCharacteristics().getDescription()}">...</td>
+            <td th:utext="${phone.getDate()}">...</td>
+            <td>
+                <img width="100" height="100" th:src="@{'data:image/jpeg;base64,'+${phone.getPictures().getEncodePictures()}}" alt=""/>
+            </td>
+
+        </tr>
+
+
+    </table>
+
+    <div>
+        <h1>
+            <img  th:src="@{'data:image/jpeg;base64,'+${im}}" alt=""/>
+        </h1>
+    </div>
 </div>
+<script type="text/javascript"
+        src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </body>
+
 </html>

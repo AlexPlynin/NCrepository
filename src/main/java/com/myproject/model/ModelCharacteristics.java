@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Model_characteristics")
-@Data
+
 public class ModelCharacteristics {
 
 
@@ -18,7 +18,7 @@ public class ModelCharacteristics {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "model_id")
     private Integer modelId;
 
@@ -46,6 +46,44 @@ public class ModelCharacteristics {
         this.description = description;
     }
 
+    public Integer getModelId() {
+        return modelId;
+    }
 
+    public void setModelId(Integer modelId) {
+        this.modelId = modelId;
+    }
+
+    public Set<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(Set<Phone> phones) {
+        this.phones = phones;
+    }
+
+    public Double getDiagonal() {
+        return diagonal;
+    }
+
+    public void setDiagonal(Double diagonal) {
+        this.diagonal = diagonal;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
 

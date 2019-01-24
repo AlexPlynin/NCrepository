@@ -1,0 +1,15 @@
+body {
+    margin: 0;
+    background: #F4F1F8;
+}
+
+th {
+    padding: 10px;
+    border: 1px solid #1364e2;
+    background: #0f9b54;
+}
+td {
+    font-size: 0.8em;
+    padding: 15px 17px;
+    border: 1px solid #25e2b6;
+}
