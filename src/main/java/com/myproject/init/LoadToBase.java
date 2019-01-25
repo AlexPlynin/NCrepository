@@ -105,6 +105,19 @@ public class LoadToBase implements ApplicationRunner {
 
     }
 
+    public void changePhone(PhoneForm phoneForm,Phone phone){
+
+        phone.setColor(phoneForm.getColor());
+        phone.getModelCharacteristics().setDescription(phoneForm.getDescription());
+        phone.getModelCharacteristics().setDiagonal(phoneForm.getDiagonal());
+        phone.getModelCharacteristics().setSize(phoneForm.getSize());
+        phone.setPrice(phoneForm.getPrice());
+        phone.getPictures().setPicture(phoneForm.getPicture());
+
+
+
+    }
+
 
 
 
