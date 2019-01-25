@@ -98,7 +98,7 @@ public class LoadToBase implements ApplicationRunner {
         Pictures pictures = new Pictures(phoneForm.getColor(),phoneForm.getPicture());
         picturesRepository.saveAndFlush(pictures);
 
-        System.out.println(    "!!!!!!!!!!!!!!!!!!!"   + new String(phoneForm.getPicture()));
+        //System.out.println(    "!!!!!!!!!!!!!!!!!!!"   + new String(phoneForm.getPicture()));
 
         Phone phone = new Phone(modelCharacteristics,pictures,phoneForm.getColor(),phoneForm.getPrice());
         phoneRepository.saveAndFlush(phone);
