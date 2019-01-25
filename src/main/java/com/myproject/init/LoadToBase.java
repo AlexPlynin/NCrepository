@@ -1,5 +1,6 @@
 package com.myproject.init;
 
+import com.myproject.forms.PhoneForm;
 import com.myproject.model.ModelCharacteristics;
 import com.myproject.model.Phone;
 import com.myproject.model.Pictures;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import static com.myproject.utils.ImageUtil.loadImage;
@@ -59,8 +61,8 @@ public class LoadToBase implements ApplicationRunner {
 
         ModelCharacteristics model1 = new ModelCharacteristics(5.6,"Big","Iphone XR 64 GB");
         ModelCharacteristics model2 = new ModelCharacteristics(6.6,"Big","Samsung Galaxy S9 64 GB");
-        ModelCharacteristics model3 = new ModelCharacteristics(6.6,"Big","Huawei Mate 20 Pro 64 GB");
-        System.out.println(model1);
+        ModelCharacteristics model3 = new ModelCharacteristics(6.7,"Big","Huawei Mate 20 Pro 64 GB");
+        //System.out.println(model1);
 
         Collections.addAll(modelCharacteristicsList,model1,model2,model3);
         modelCharacteristicsList.forEach(System.out::println);
@@ -72,21 +74,34 @@ public class LoadToBase implements ApplicationRunner {
 //
 //        }
 
-        Pictures picture1 = new Pictures("green",loadImage("/pictures/huaweimate20pro.jpg"));
-        Pictures picture2 = new Pictures("black",loadImage("/pictures/iphoneXR.jpg"));
+        Pictures picture2 = new Pictures("green",loadImage("/pictures/huaweimate20pro.jpg"));
+        Pictures picture1 = new Pictures("black",loadImage("/pictures/iphoneXR.jpg"));
         Pictures picture3= new Pictures("red",loadImage("/pictures/samsungGS9.jpg"));
 
         Collections.addAll(picturesList,picture1,picture2,picture3);
         picturesList.forEach((model)->picturesRepository.saveAndFlush(model));
 
-        Phone phone1 = new Phone(model1,picture1,"green",76000.99);
-        Phone phone2 = new Phone(model2,picture2,"black",45000.99);
-        Phone phone3 = new Phone(model3,picture3,"red",47000.99);
+        Phone phone1 = new Phone(model1,picture1,"yellow",76000.99);
+        Phone phone2 = new Phone(model2,picture3,"black",45000.99);
+        Phone phone3 = new Phone(model3,picture2,"blue",47000.99);
 
         Collections.addAll(phoneList,phone1,phone2,phone3);
         phoneList.forEach((model)->phoneRepository.saveAndFlush(model));
 
 
+
+    }
+    public void setPhoneFromForm(PhoneForm phoneForm){
+        ModelCharacteristics modelCharacteristics = new ModelCharacteristics(phoneForm.getDiagonal(),phoneForm.getSize(),phoneForm.getDescription());
+        modelCharacteristicsRepository.saveAndFlush(modelCharacteristics);
+
+        Pictures pictures = new Pictures(phoneForm.getColor(),phoneForm.getPicture());
+        picturesRepository.saveAndFlush(pictures);
+
+        System.out.println(    "!!!!!!!!!!!!!!!!!!!"   + new String(phoneForm.getPicture()));
+
+        Phone phone = new Phone(modelCharacteristics,pictures,phoneForm.getColor(),phoneForm.getPrice());
+        phoneRepository.saveAndFlush(phone);
 
     }
 

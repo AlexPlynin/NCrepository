@@ -4,12 +4,15 @@ body {
 }
 
 th {
+    vertical-align: auto;
     padding: 10px;
     border: 1px solid #1364e2;
     background: #0f9b54;
 }
 td {
     font-size: 0.8em;
-    padding: 15px 17px;
+    padding: 15px 80px;
+    height: auto;
     border: 1px solid #25e2b6;
 }
+

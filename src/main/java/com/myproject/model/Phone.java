@@ -106,7 +106,7 @@ public class Phone {
 
     @Override
     public String toString() {
-        return "Phone{" +
+        return "PhoneForm{" +
                 "id=" + id +
                 '}';
     }

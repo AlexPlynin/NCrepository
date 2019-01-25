@@ -60,6 +60,9 @@ public class Pictures {
         return Base64.getEncoder().encodeToString(getPicture());
     }
 
+    public String getStringView(){
+        return new String(getPicture());
+    }
     public void setPicture(byte[] picture) {
         this.picture = picture;
     }
