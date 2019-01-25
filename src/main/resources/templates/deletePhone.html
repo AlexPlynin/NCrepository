@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/styles.css}" />
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<header>
+    <h1>Delete Phone</h1>
+</header>
+<body>
+
+<div class="glyphicon-text-background ">delete some phone by id number</div>
+<form action="/deletePhone" method="post">
+<p>Id Number: <input type="text" name="id"/></p>
+<p><input type="submit" value="Submit"/><input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>

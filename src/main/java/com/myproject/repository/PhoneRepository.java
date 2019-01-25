@@ -11,4 +11,6 @@ public interface PhoneRepository extends JpaRepository<Phone,Long> {
 
 
     Phone findById(Integer id);
+
+    void deleteById(Integer id);
 }
