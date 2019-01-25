@@ -15,4 +15,7 @@ td {
     height: auto;
     border: 1px solid #25e2b6;
 }
-
+.flash{
+    background-color: #25e2b6;
+    padding: 1em;
+}
