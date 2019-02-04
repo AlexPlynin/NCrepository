@@ -16,6 +16,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.lang.NonNullApi;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityManager;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,6 +37,9 @@ public class LoadToBase implements ApplicationRunner {
 
     private  PicturesRepository picturesRepository;
     //private PictureServiceImpl pictureService;
+
+    @Autowired
+    EntityManager entityManager;
 
 
 
@@ -74,16 +78,16 @@ public class LoadToBase implements ApplicationRunner {
 //
 //        }
 
-        Pictures picture2 = new Pictures("green",loadImage("/pictures/huaweimate20pro.jpg"));
+        Pictures picture3 = new Pictures("green",loadImage("/pictures/huaweimate20pro.jpg"));
         Pictures picture1 = new Pictures("black",loadImage("/pictures/iphoneXR.jpg"));
-        Pictures picture3= new Pictures("red",loadImage("/pictures/samsungGS9.jpg"));
+        Pictures picture2= new Pictures("red",loadImage("/pictures/samsungGS9.jpg"));
 
         Collections.addAll(picturesList,picture1,picture2,picture3);
         picturesList.forEach((model)->picturesRepository.saveAndFlush(model));
 
         Phone phone1 = new Phone(model1,picture1,"yellow",76000.99);
-        Phone phone2 = new Phone(model2,picture3,"black",45000.99);
-        Phone phone3 = new Phone(model3,picture2,"blue",47000.99);
+        Phone phone2 = new Phone(model2,picture2,"black",45000.99);
+        Phone phone3 = new Phone(model3,picture3,"blue",47000.99);
 
         Collections.addAll(phoneList,phone1,phone2,phone3);
         phoneList.forEach((model)->phoneRepository.saveAndFlush(model));
@@ -102,6 +106,7 @@ public class LoadToBase implements ApplicationRunner {
 
         Phone phone = new Phone(modelCharacteristics,pictures,phoneForm.getColor(),phoneForm.getPrice());
         phoneRepository.saveAndFlush(phone);
+        //entityManager.refresh(phone);
 
     }
 

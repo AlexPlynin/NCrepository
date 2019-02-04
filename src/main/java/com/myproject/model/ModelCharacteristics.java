@@ -18,7 +18,7 @@ public class ModelCharacteristics {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "model_id")
     private Integer modelId;
 
