@@ -25,20 +25,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/js/**", "/css/**");
+        web.ignoring().antMatchers("**/js/**", "**/css/**");
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http        .csrf().disable()
+        http
+                .csrf().disable()
                     .authorizeRequests()
-                    .antMatchers("/registration","/login","/main").permitAll()
-                    .anyRequest().
+                    .antMatchers("/registration","/login","/h2/**").permitAll()
+                    //.antMatchers("/main").hasAnyRole("USER","ADMIN")
+                .anyRequest().
                     authenticated()
                 .and()
                     .formLogin()
                     //.successForwardUrl("/main")
 
                     .loginPage("/login")
+                    .defaultSuccessUrl("/")
 
 //                    .successForwardUrl("/")
 //                    .defaultSuccessUrl("/")
@@ -73,7 +76,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //    }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    //@Autowired
+    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+
+        auth.inMemoryAuthentication().withUser("user").password(bCryptPasswordEncoder().encode("user")).roles("USER");
+        auth.inMemoryAuthentication().withUser("admin").password(bCryptPasswordEncoder().encode("admin")).roles("ADMIN");
+
     }
+
+
+
 }
