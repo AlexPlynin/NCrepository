@@ -3,91 +3,117 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Choose your phoneForm</title>
-    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" type="text/css"
-          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <!--<link rel="stylesheet" type="text/css" media="all" th:href="@{/css/style.css}"/>-->
+    <!--<link rel="stylesheet" type="text/css"-->
+    <!--href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css"
+          integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
+
 </head>
-<header>
-    <h1>Phones</h1>
-</header>
+
 <body>
 
-<nav class="navbar navbar-inverse">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Menu</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-            </ul>
-        </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Shop</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/main">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">My cart</a>
+            </li>
+
+        </ul>
+
+        <ul class="navbar-nav navbar-right">
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/logout}">Log out</a>
+            </li>
+            <span class="navbar-text">
+             Hello [[${#httpServletRequest.remoteUser}]]!
+            </span>
+
+        </ul>
     </div>
 </nav>
 
-<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
-</form>
 
-<div sec:authorize="hasRole('ROLE_ADMIN')">
-    This content is only shown to administrators.
-</div>
-<div sec:authorize="hasRole('ROLE_USER')">
-    This content is only shown to USER.
-</div>
-<div sec:authorize="hasRole('ROLE_USER')">
-    This content is only shown to users.
-</div>
 
-<div align="middle">
-    <table class="table" border="5">
-        <tr class="tab-content">
-            <th>id</th>
-            <th>model</th>
-            <th>picture_id</th>
+
+<div class="container">
+    <span sec:authorize="hasAuthority('ADMIN')"><a href="/user">User List</a></span>
+
+
+    <table class="table table-bordered table-hover">
+        <thead class="">
+        <tr>
+            <th sec:authorize="hasAuthority('ADMIN')">id</th>
+            <th sec:authorize="hasAuthority('ADMIN')">model</th>
+            <th sec:authorize="hasAuthority('ADMIN')">picture_id</th>
             <th>color</th>
             <th>price</th>
             <th>size</th>
             <th>diagonal</th>
             <th>description</th>
-            <th>creation date</th>
+            <th sec:authorize="hasAuthority('ADMIN')">creation date</th>
             <th>picture</th>
+            <th>action</th>
         </tr>
+        </thead>
+        <tbody>
         <tr th:each="phoneForm : ${phones}">
-            <td th:text="${phoneForm.getId()}">...</td>
-            <td th:utext="${phoneForm.getModelCharacteristics().getModelId()}">...</td>
-            <td th:utext="${phoneForm.getPictures().getModelId()}">...</td>
+            <td sec:authorize="hasAuthority('ADMIN')" th:text="${phoneForm.getId()}"></td>
+            <td sec:authorize="hasAuthority('ADMIN')" th:utext="${phoneForm.getModelCharacteristics().getModelId()}">
+                ...
+            </td>
+            <td sec:authorize="hasAuthority('ADMIN')" th:utext="${phoneForm.getPictures().getModelId()}">...</td>
             <td th:utext="${phoneForm.getColor()}">...</td>
             <td th:utext="${phoneForm.getPrice()}">...</td>
             <td th:utext="${phoneForm.getModelCharacteristics().getSize()}">...</td>
             <td th:utext="${phoneForm.getModelCharacteristics().getDiagonal()}">...</td>
             <td th:utext="${phoneForm.getModelCharacteristics().getDescription()}">...</td>
-            <td th:utext="${phoneForm.getDate()}">...</td>
+            <td sec:authorize="hasAuthority('ADMIN')" th:utext="${phoneForm.getDate()}">...</td>
+
+
             <td>
                 <img width="190" height="190"
                      th:src="@{'data:image/jpeg;base64,'+${phoneForm.getPictures().getEncodePictures()}}" alt=""/>
             </td>
 
+            <td>
+                <button sec:authorize="hasAuthority('ADMIN')" type="button" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn  btn-success">Add to cart</button>
+                <!--<input type="radio" th:for="" value="Choose"></td>-->
         </tr>
+        </tbody>
 
 
     </table>
-    <div >
 
 
-        <p><button   class="arrow-button" onclick="location.href='/addPhone'">Add Phone</button>
-            <button   class="arrow-button" onclick="location.href='/deletePhone'">Delete Phone</button>
-            <button   class="arrow-button" onclick="location.href='/changePhone'">Change Phone</button>
-        </p>
-        <!--<button   class="arrow-button" onclick="location.href='/addPhone'">Add Phone</button>-->
+    <div sec:authorize="hasAuthority('ADMIN')" class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary" onclick="location.href='/addPhone'">Add Phone</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='/deletePhone'">Delete Phone</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='/changePhone'">Change Phone</button>
     </div>
 
 
 </div>
 <script type="text/javascript"
         src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

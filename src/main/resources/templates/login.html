@@ -2,10 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" type="text/css" media="all"
-          th:href="@{/styles.css}" />
-    <link rel="stylesheet" type="text/css"
-          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css"
+          integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
@@ -21,12 +23,28 @@
 <div th:if="${param.logout}">
     You have been logged out.
 </div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
+<form   th:action="@{/login}" method="post">
+    <div class="form-group">
+
+
+        <label>Username
+        <input type="text" class="form-control" name="username" placeholder="Enter username"/></label>
+    </div>
+    <div>
+        <label> Password
+        <input type="password" class="form-control" name="password" placeholder="Enter password"/> </label></div>
+    <div>
+        <p>
+        <input class="btn btn-primary" type="submit" value="Sign In"/>
+
+            <button class="btn btn-light" type="button" onclick="location.href='/registration'">Registration</button>
+
+        </p>
+    </div>
+
 </form>
-<a href="/registration">Add new user</a>
+
+<!--<a href="/registration">Add new user</a>-->
 </body>
 </body>
 </html>

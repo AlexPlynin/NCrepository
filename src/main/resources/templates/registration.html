@@ -2,10 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" type="text/css" media="all"
-          th:href="@{/styles.css}" />
-    <link rel="stylesheet" type="text/css"
-          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css"
+          integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
@@ -15,11 +17,28 @@
 
 <h1 >Registration Page</h1>
 
-<div th:text="${message}"></div>
-<form th:action="@{/registration}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Add new User"/></div>
+<div th:if="${message}" class="alert alert-secondary" role="alert" th:text="${message}"></div>
+<div th:if="${passwordError}" class="alert alert-secondary" role="alert" th:text="${passwordError}"></div>
+<form action="#" th:action="@{/registration}" th:object="${user}"  method="post">
+
+    <div><label> User Name : <input class="form-control" type="text" name="username"/> </label></div>
+    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="alert alert-danger">
+        <label th:for="*{username}"> <p>name is invalid</p></label>
+    </div>
+
+    <div><label> Password: <input class="form-control" type="password" name="password"/> </label></div>
+    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert alert-danger">
+        <label th:for="*{username}"> <p>name is invalid</p></label>
+    </div>
+    <div><label> Password confirmation: <input class="form-control" type="password" name="password2"/> </label></div>
+    <div>
+        <p>
+        <input class="btn btn-primary" type="submit" value="Add new User"/>
+
+        <button class="btn btn-light" type="button" onclick="location.href='/login'">Exit</button>
+
+        </p>
+    </div>
 </form>
 </body>
 </body>

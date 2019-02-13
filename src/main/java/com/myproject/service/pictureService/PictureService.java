@@ -1,4 +1,4 @@
-package com.myproject.service.PictureService;
+package com.myproject.service.pictureService;
 
 import com.myproject.model.Pictures;
 

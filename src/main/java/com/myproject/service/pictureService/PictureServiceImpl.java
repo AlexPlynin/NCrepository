@@ -1,15 +1,8 @@
-package com.myproject.service.PictureService;
+package com.myproject.service.pictureService;
 
 import com.myproject.model.Pictures;
 import com.myproject.repository.PicturesRepository;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Base64;
 
 import static com.myproject.utils.ImageUtil.loadImage;
 
