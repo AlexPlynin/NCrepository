@@ -31,9 +31,11 @@
                 <a class="nav-link" href="/main">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">My cart</a>
+                <a class="nav-link"  th:href="@{'/cart/{id}'(id=${user.getId()})}">My cart</a>
             </li>
-
+            <li class="nav-item">
+                <span class="badge badge-primary badge-pill" >0</span>
+            </li>
         </ul>
 
         <ul class="navbar-nav navbar-right">
@@ -44,18 +46,16 @@
             <span class="navbar-text">
              Hello [[${#httpServletRequest.remoteUser}]]!
             </span>
-
         </ul>
     </div>
 </nav>
 
 
-
-
 <div class="container">
+
     <span sec:authorize="hasAuthority('ADMIN')"><a href="/user">User List</a></span>
 
-
+    <form  th:action="@{/deleteCheck}" id="formId" method="post">
     <table class="table table-bordered table-hover">
         <thead class="">
         <tr>
@@ -72,32 +72,50 @@
             <th>action</th>
         </tr>
         </thead>
-        <tbody>
-        <tr th:each="phoneForm : ${phones}">
-            <td sec:authorize="hasAuthority('ADMIN')" th:text="${phoneForm.getId()}"></td>
-            <td sec:authorize="hasAuthority('ADMIN')" th:utext="${phoneForm.getModelCharacteristics().getModelId()}">
-                ...
-            </td>
-            <td sec:authorize="hasAuthority('ADMIN')" th:utext="${phoneForm.getPictures().getModelId()}">...</td>
-            <td th:utext="${phoneForm.getColor()}">...</td>
-            <td th:utext="${phoneForm.getPrice()}">...</td>
-            <td th:utext="${phoneForm.getModelCharacteristics().getSize()}">...</td>
-            <td th:utext="${phoneForm.getModelCharacteristics().getDiagonal()}">...</td>
-            <td th:utext="${phoneForm.getModelCharacteristics().getDescription()}">...</td>
-            <td sec:authorize="hasAuthority('ADMIN')" th:utext="${phoneForm.getDate()}">...</td>
+
+            <tbody>
+            <tr th:each="phoneForm : ${phones}">
+                <td sec:authorize="hasAuthority('ADMIN')" th:text="${phoneForm.getId()}"></td>
+                <td sec:authorize="hasAuthority('ADMIN')"
+                    th:utext="${phoneForm.getModelCharacteristics().getModelId()}">
+                </td>
+                <td sec:authorize="hasAuthority('ADMIN')" th:utext="${phoneForm.getPictures().getModelId()}">...</td>
+                <td th:utext="${phoneForm.getColor()}">...</td>
+                <td th:utext="${phoneForm.getPrice()}">...</td>
+                <td th:utext="${phoneForm.getModelCharacteristics().getSize()}">...</td>
+                <td th:utext="${phoneForm.getModelCharacteristics().getDiagonal()}">...</td>
+                <td th:utext="${phoneForm.getModelCharacteristics().getDescription()}">...</td>
+                <td sec:authorize="hasAuthority('ADMIN')" th:utext="${phoneForm.getDate()}">...</td>
 
 
-            <td>
-                <img width="190" height="190"
-                     th:src="@{'data:image/jpeg;base64,'+${phoneForm.getPictures().getEncodePictures()}}" alt=""/>
-            </td>
+                <td>
+                    <img width="190" height="190"
+                         th:src="@{'data:image/jpeg;base64,'+${phoneForm.getPictures().getEncodePictures()}}" alt=""/>
+                </td>
 
-            <td>
-                <button sec:authorize="hasAuthority('ADMIN')" type="button" class="btn btn-danger">Delete</button>
-                <button type="button" class="btn  btn-success">Add to cart</button>
-                <!--<input type="radio" th:for="" value="Choose"></td>-->
-        </tr>
-        </tbody>
+                <td>
+                    <div>
+                        <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/inlineDeletePhone}" method="post">
+                            <button type="submit" th:value="${phoneForm.getId()}" name="id"
+                                    class="btn btn-outline-danger">Delete</button>
+                        </form>
+                    </div>
+                    <div>
+                        <form  th:action="@{/addPhoneToCart}" method="post">
+                            <button type="submit" th:value="${phoneForm.getId()}" name="id"
+                                    class="btn btn-outline-primary">Add</button>
+                        </form>
+                    </div>
+                    <!--<button type="button" class="btn btn-outline-primary">Add</button>-->
+
+                    <div class="form-check">
+                        <input sec:authorize="hasAuthority('ADMIN')" class="form-check-input position-static"
+                               type="checkbox" name="idChecked" th:value="${phoneForm.getId()}">
+                    </div>
+
+                </td>
+            </tr>
+            </tbody>
 
 
     </table>
@@ -107,7 +125,10 @@
         <button type="button" class="btn btn-secondary" onclick="location.href='/addPhone'">Add Phone</button>
         <button type="button" class="btn btn-secondary" onclick="location.href='/deletePhone'">Delete Phone</button>
         <button type="button" class="btn btn-secondary" onclick="location.href='/changePhone'">Change Phone</button>
+        <button type="submit" class="btn btn-secondary" form="formId">Delete Selected</button>
+        <!--<button type="button" class="btn btn-secondary" onclick="location.href='/deleteCheck'">Delete Selected</button>-->
     </div>
+    </form>
 
 
 </div>

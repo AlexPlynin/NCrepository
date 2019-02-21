@@ -9,8 +9,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Phones")
-//@Data
-public class Phone {
+@Data
+public class Phone implements Product {
 
     public Phone() {
     }
@@ -28,6 +28,18 @@ public class Phone {
     //У множества телефонов одна характеризующая картинка
     @JoinColumn(name = "PICTURE_ID",nullable = false)
     private Pictures pictures;//
+
+    //У множества телефонов одна характеризующая картинка
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ORDER_ID")
+    private Order order;
+
+    private Double price;
+
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_data")
+    private Date date;
 
     //    @OneToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY) //цвет отдие к одному
 //    @JoinColumn(name = "color")
@@ -47,14 +59,6 @@ public class Phone {
         this.price = price;
         this.date = new Date();
     }
-
-    //@Column(name = "cost")
-    private Double price;
-
-    @Basic
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "creation_data")
-    private Date date;
 
     public Integer getId() {
         return id;
@@ -80,12 +84,12 @@ public class Phone {
         this.pictures = pictures;
     }
 
-    public String getColor() {
-        return color;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public Double getPrice() {
@@ -104,10 +108,11 @@ public class Phone {
         this.date = date;
     }
 
-    @Override
-    public String toString() {
-        return "PhoneForm{" +
-                "id=" + id +
-                '}';
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

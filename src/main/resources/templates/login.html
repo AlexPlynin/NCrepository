@@ -9,6 +9,7 @@
           integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
 </head>
 
 <body>
@@ -17,10 +18,10 @@
 
 <h1 class="text-justify form-group-lg">Login Page</h1>
 
-<div th:if="${param.error}">
-    Invalid username and password.
+<div class="alert alert-secondary" role="alert" th:if="${param.error}">
+    Invalid username or password.
 </div>
-<div th:if="${param.logout}">
+<div class="alert alert-secondary" role="alert" th:if="${param.logout}">
     You have been logged out.
 </div>
 <form   th:action="@{/login}" method="post">

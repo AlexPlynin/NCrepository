@@ -27,17 +27,20 @@ public class User implements UserDetails, Serializable {
     @NotBlank(message = "password cannot be empty")
     private String password;
 
-
-    //@NotNull
-    //@NotBlank(message = "password confirmation cannot be empty")
     @Transient
-    //@org.springframework.data.annotation.Transient
-    //@java.beans.Transient
-    //@NotBlank(message = "No")
     private String password2;
 
     private Double balance;
     private boolean active;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
     public User() {
     }
@@ -50,11 +53,6 @@ public class User implements UserDetails, Serializable {
         this.active = active;
         this.roles = roles;
     }
-
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -81,5 +79,7 @@ public class User implements UserDetails, Serializable {
         return isActive();
     }
 
-
+    public Long getId() {
+        return id;
+    }
 }

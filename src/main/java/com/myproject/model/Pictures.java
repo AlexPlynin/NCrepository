@@ -21,6 +21,11 @@ public class Pictures {
     //@OneToOne(mappedBy = "color")
     private String color;
 
+    @Lob
+    @Column(columnDefinition = "BLOB")
+    private byte[] picture;
+
+
     public Pictures(String color, byte[] picture) {
         this.color = color;
         this.picture = picture;
@@ -67,8 +72,5 @@ public class Pictures {
         this.picture = picture;
     }
 
-    @Lob
-    @Column(columnDefinition = "BLOB")
-    private byte[] picture;
 
 }

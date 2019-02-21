@@ -74,7 +74,7 @@ public class LoadToBase implements ApplicationRunner {
         //System.out.println(model1);
 
         Collections.addAll(modelCharacteristicsList, model1, model2, model3);
-        modelCharacteristicsList.forEach(System.out::println);
+       // modelCharacteristicsList.forEach(System.out::println);
         modelCharacteristicsList.forEach((model) -> modelCharacteristicsRepository.saveAndFlush(model));
 
         System.out.println(modelCharacteristicsRepository);
@@ -105,6 +105,11 @@ public class LoadToBase implements ApplicationRunner {
         userRepository.save(inMemoryUser);
     }
 
+    public void setUser(){
+        User inMemoryUser = new User("alex",bCryptPasswordEncoder.encode("1"),0.0,true, Collections.singleton(Role.USER));
+        userRepository.save(inMemoryUser);
+    }
+
     public void setPhoneFromForm(PhoneForm phoneForm) {
         ModelCharacteristics modelCharacteristics = new ModelCharacteristics(phoneForm.getDiagonal(), phoneForm.getSize(), phoneForm.getDescription());
         modelCharacteristicsRepository.saveAndFlush(modelCharacteristics);
@@ -119,6 +124,8 @@ public class LoadToBase implements ApplicationRunner {
         //entityManager.refresh(phone);
 
     }
+
+
 
     public void changePhone(PhoneForm phoneForm, Phone phone) {
 
@@ -137,5 +144,6 @@ public class LoadToBase implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         setPhones();
         setAdmin();
+        setUser();
     }
 }

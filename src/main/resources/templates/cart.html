@@ -1,0 +1,125 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Choose your phoneForm</title>
+    <!--<link rel="stylesheet" type="text/css" media="all" th:href="@{/css/style.css}"/>-->
+    <!--<link rel="stylesheet" type="text/css"-->
+    <!--href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css"
+          integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Shop</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/main">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/cart">My cart</a>
+            </li>
+            <li class="nav-item">
+                <span class="badge badge-primary badge-pill">1</span>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav navbar-right">
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/logout}">Log out</a>
+            </li>
+            <span class="navbar-text">
+             Hello [[${#httpServletRequest.remoteUser}]]!
+            </span>
+
+        </ul>
+    </div>
+</nav>
+
+
+
+
+<div class="container">
+    <div th:if="${message}" class="alert alert-secondary" role="alert" >
+        <span th:text="${message}"></span>
+        <div>Go to Main page <a  th:href="@{/main}">click here</a></div>
+    </div>
+
+
+
+    <table class="table table-bordered table-hover">
+        <thead class="">
+        <tr>
+            <th sec:authorize="hasAuthority('ADMIN')">id</th>
+            <th sec:authorize="hasAuthority('ADMIN')">model</th>
+            <th sec:authorize="hasAuthority('ADMIN')">picture_id</th>
+            <th>color</th>
+            <th>price</th>
+            <th>size</th>
+            <th>diagonal</th>
+            <th>description</th>
+            <th sec:authorize="hasAuthority('ADMIN')">creation date</th>
+            <th>picture</th>
+            <th>action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="phoneForm : ${phones}">
+            <td sec:authorize="hasAuthority('ADMIN')" th:text="${phoneForm.getId()}"></td>
+            <td sec:authorize="hasAuthority('ADMIN')"
+                th:utext="${phoneForm.getModelCharacteristics().getModelId()}">
+            </td>
+            <td sec:authorize="hasAuthority('ADMIN')" th:utext="${phoneForm.getPictures().getModelId()}">...</td>
+            <td th:utext="${phoneForm.getColor()}">...</td>
+            <td th:utext="${phoneForm.getPrice()}">...</td>
+            <td th:utext="${phoneForm.getModelCharacteristics().getSize()}">...</td>
+            <td th:utext="${phoneForm.getModelCharacteristics().getDiagonal()}">...</td>
+            <td th:utext="${phoneForm.getModelCharacteristics().getDescription()}">...</td>
+            <td sec:authorize="hasAuthority('ADMIN')" th:utext="${phoneForm.getDate()}">...</td>
+
+
+            <td>
+                <img width="190" height="190"
+                     th:src="@{'data:image/jpeg;base64,'+${phoneForm.getPictures().getEncodePictures()}}" alt=""/>
+            </td>
+
+            <td>
+                <div>
+                    <form sec:authorize="hasAuthority('USER')" th:action="@{/inlineDeletePhoneFromCart}" method="post">
+                        <button type="submit" th:value="${phoneForm.getId()}" name="id"
+                                class="btn btn-outline-danger">Delete</button>
+                    </form>
+                </div>
+            </td>
+        </table>
+
+
+
+
+</div>
+
+
+
+
+<script type="text/javascript"
+        src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
