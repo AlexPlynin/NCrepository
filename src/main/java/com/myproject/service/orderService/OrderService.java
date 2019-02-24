@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 @Service
 public class OrderService {
@@ -35,17 +36,18 @@ public class OrderService {
 
         String userId = userService.getCurrentUserId();
 
-        if (!orderMap.containsKey(userId)){
-            orderMap.put(userId, new Order());
+        User user = userService.getCurrentUser();
+        if (user.getOrder()==null){
+            user.setOrder(new Order());
         }
 
         Phone phone = phoneService.findById(phoneId);
 
-        Order currentOrder = orderMap.get(userId);
+        Order currentOrder = user.getOrder();
         currentOrder.setPhone(phone);
-        currentOrder.setUser(userService.getCurrentUser());
 
-        orderMap.put(userId,currentOrder);
+        orderRepository.save(currentOrder);
+        //orderMap.put(userId,currentOrder);
 
 
 
@@ -54,12 +56,12 @@ public class OrderService {
 
     public Order getOrder(){
 
-        return  orderMap.get(userService.getCurrentUserId());
+        return userService.getCurrentUser().getOrder();
     }
 
     public Integer getProductCountInOrder(){
 
-        return orderMap.get(userService.getCurrentUserId()).getPhones().size();
+        return userService.getCurrentUser().getOrder().getPhones().size();
     }
 
     @Transactional
@@ -69,14 +71,9 @@ public class OrderService {
         Phone phone = phoneService.findById(id);
 
         Order order = getOrder();
-        orderRepository.deleteOrderById(order.getId());
         List<Phone> phones = order.getPhones();
-        phones.remove(phone);
-        //order.setPhones(phones);
-       // orderRepository.
-        //orderRepository.save(order);
-       // orderRepository.findAll().
-        //orderRepository.deletePhonesFromOrderById(Long.valueOf(id));
+        phones.removeIf(phone1 -> phone1.getId().equals(Integer.valueOf(id)));
+        userService.getCurrentUser().setOrder(order);
 
     }
 
