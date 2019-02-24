@@ -19,7 +19,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "order", cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "order", cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
     private List<Phone> phones = new ArrayList<>();
 
     @OneToOne(mappedBy = "order")

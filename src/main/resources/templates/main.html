@@ -12,9 +12,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css"
           integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
 
+
 </head>
 
 <body>
+
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Shop</a>
@@ -34,7 +36,7 @@
                 <a class="nav-link"  th:href="@{'/cart/{id}'(id=${user.getId()})}">My cart</a>
             </li>
             <li class="nav-item">
-                <span class="badge badge-primary badge-pill" >0</span>
+                <span class="badge badge-primary badge-pill">0</span>
             </li>
         </ul>
 
@@ -51,11 +53,27 @@
 </nav>
 
 
+
 <div class="container">
+    <script type="text/javascript">
+        // var output = document.getElementById('output');
+        function getCheckedCheckboxesFor(checkboxName) {
+            var checkboxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked'), values = [];
+            Array.prototype.forEach.call(checkboxes, function(el) {
+                values.push(el.value);
+            });
+            // output.innerHTML=values;
+            return values;
+
+        }
+
+        var list = getCheckedCheckboxesFor('idChecked');
+
+    </script>
 
     <span sec:authorize="hasAuthority('ADMIN')"><a href="/user">User List</a></span>
 
-    <form  th:action="@{/deleteCheck}" id="formId" method="post">
+
     <table class="table table-bordered table-hover">
         <thead class="">
         <tr>
@@ -95,13 +113,13 @@
 
                 <td>
                     <div>
-                        <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/inlineDeletePhone}" method="post">
+                        <form class="form-group" sec:authorize="hasAuthority('ADMIN')" th:action="@{/inlineDeletePhone}" method="post">
                             <button type="submit" th:value="${phoneForm.getId()}" name="id"
                                     class="btn btn-outline-danger">Delete</button>
                         </form>
                     </div>
                     <div>
-                        <form  th:action="@{/addPhoneToCart}" method="post">
+                        <form class="form-group"  th:action="@{/addPhoneToCart}" method="post">
                             <button type="submit" th:value="${phoneForm.getId()}" name="id"
                                     class="btn btn-outline-primary">Add</button>
                         </form>
@@ -109,7 +127,7 @@
                     <!--<button type="button" class="btn btn-outline-primary">Add</button>-->
 
                     <div class="form-check">
-                        <input sec:authorize="hasAuthority('ADMIN')" class="form-check-input position-static"
+                        <input  sec:authorize="hasAuthority('ADMIN')" class="form-check-input position-static"
                                type="checkbox" name="idChecked" th:value="${phoneForm.getId()}">
                     </div>
 
@@ -125,13 +143,36 @@
         <button type="button" class="btn btn-secondary" onclick="location.href='/addPhone'">Add Phone</button>
         <button type="button" class="btn btn-secondary" onclick="location.href='/deletePhone'">Delete Phone</button>
         <button type="button" class="btn btn-secondary" onclick="location.href='/changePhone'">Change Phone</button>
-        <button type="submit" class="btn btn-secondary" form="formId">Delete Selected</button>
         <!--<button type="button" class="btn btn-secondary" onclick="location.href='/deleteCheck'">Delete Selected</button>-->
+        <!--<form  class="form-group"  th:action="@{/deleteCheckGet}" method="get">-->
+            <!--<input type="submit" class="btn btn-secondary" th:action="@{/deleteCheckGet}"  onclick="alert(getCheckedCheckboxesFor('idChecked'));" value="Delete Selected" th:method="get" />-->
+        <!--</form>-->
+
+        <button    type="button" name="idList" class="btn btn-secondary"  onclick="location.href='/deleteCheckGet'" >Delete Selected</button>
+        <div id="idList"></div>
     </div>
-    </form>
+
+
+
 
 
 </div>
+<script type="text/javascript">
+    // var output = document.getElementById('output');
+    function getCheckedCheckboxesFor(checkboxName) {
+        var checkboxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked'), values = [];
+        Array.prototype.forEach.call(checkboxes, function(el) {
+            values.push(el.value);
+        });
+        // output.innerHTML=values;
+        return values;
+
+    }
+
+    document.getElementById('idlist').value = getCheckedCheckboxesFor('idChecked');
+</script>
+
+
 <script type="text/javascript"
         src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 

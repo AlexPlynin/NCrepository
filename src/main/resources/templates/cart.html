@@ -101,12 +101,15 @@
 
             <td>
                 <div>
-                    <form sec:authorize="hasAuthority('USER')" th:action="@{/inlineDeletePhoneFromCart}" method="post">
+                    <form class="form-group" sec:authorize="hasAuthority('USER')" th:action="@{/inlineDeleteFromCart}" method="post">
                         <button type="submit" th:value="${phoneForm.getId()}" name="id"
                                 class="btn btn-outline-danger">Delete</button>
                     </form>
                 </div>
+
+
             </td>
+        </tr>
         </table>
 
 
